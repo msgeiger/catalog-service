@@ -10,15 +10,19 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    set("springCloudVersion", "2023.0.1")
-}
+extra["springCloudVersion"] = "2023.0.1"
 
 tasks.named<BootRun>("bootRun") {
     systemProperty("spring.profiles.active", "testdata")
 }
 
-group = "com.polarbootshop"
+configurations {
+    compileOnly {
+        annotationProcessor
+    }
+}
+
+group = "com.polarbookshop"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -30,13 +34,21 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.retry:spring-retry")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webflux")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
 }
 
 tasks.withType<Test> {
