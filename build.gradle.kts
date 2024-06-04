@@ -11,7 +11,7 @@ repositories {
 }
 
 extra["springCloudVersion"] = "2023.0.1"
-extra["testcontainersVersion"] = "1.19.3"
+extra["testcontainersVersion"] = "1.19.8"
 
 tasks.named<BootRun>("bootRun") {
     systemProperty("spring.profiles.active", "testdata")
@@ -41,7 +41,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.retry:spring-retry")
-    //implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
+
 
     runtimeOnly("org.postgresql:postgresql")
 

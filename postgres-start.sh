@@ -6,4 +6,4 @@ docker run -d \
  -e POSTGRES_PASSWORD=password \
  -e POSTGRES_DB=polardb_catalog \
  -p 5432:5432 \
- postgres:14.4
+ postgres:16.1
