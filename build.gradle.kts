@@ -1,4 +1,5 @@
 import org.springframework.boot.gradle.tasks.run.BootRun
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     java
@@ -17,11 +18,26 @@ tasks.named<BootRun>("bootRun") {
     systemProperty("spring.profiles.active", "testdata")
 }
 
+tasks.named<BootBuildImage>("bootBuildImage") {
+    builder = "docker.io/paketobuildpacks/builder-jammy-base"
+    imageName = "${project.name}"
+    environment = mapOf("BP_JVM_VERSION" to "21.*")
+
+    docker {
+        publishRegistry {
+            username = project.findProperty("registryUsername").toString()
+            password = project.findProperty("registryToken").toString()
+            url = project.findProperty("registryUrl").toString()
+        }
+    }
+}
+
 configurations {
     compileOnly {
         annotationProcessor
     }
 }
+
 
 group = "com.polarbookshop"
 version = "0.0.1-SNAPSHOT"
