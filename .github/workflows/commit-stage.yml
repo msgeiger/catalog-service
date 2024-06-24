@@ -39,7 +39,7 @@ jobs:
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
       - name: Validate Kubernetes manifests
-        uses: yannh/kubeconform/actions/checkout@v2
+        uses: yannh/kubeconform/actions/checkout
         with:
           kubectl: 1.28.3
           kubeconform: latest
