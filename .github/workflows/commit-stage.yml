@@ -46,7 +46,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: docker://ghcr.io/yannh/kubeconform:latest
         with:
-          entrypoint: '/kubeconform'
+          entrypoint: '/k8s'
           args: "-summary -output json kubeconfigs/"
   package:
     name: Package and Publish
