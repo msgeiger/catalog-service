@@ -46,8 +46,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: docker://ghcr.io/yannh/kubeconform:latest
         with:
-          entrypoint: '/kubeconform/k8s'
-          args: "-summary -output json kubeconfigs/"
+          run:
+            kubeconform --strict -verbose k8s
   package:
     name: Package and Publish
     if: ${{ github.ref == 'refs/heads/main' }}
